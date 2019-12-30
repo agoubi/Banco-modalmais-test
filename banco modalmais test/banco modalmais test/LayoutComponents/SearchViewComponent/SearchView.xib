@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchView" customModule="banco_modalmais_test" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomBorderView" destination="he0-eR-Jvi" id="gno-fo-Dyq"/>
+                <outlet property="searchBar" destination="Ssi-fs-TVG" id="n6U-et-WWC"/>
+                <outlet property="titleSearchView" destination="VHj-lZ-sBe" id="7ei-5c-D1b"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="247" height="68"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Title]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHj-lZ-sBe">
+                    <rect key="frame" x="12" y="8" width="150" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="6kw-4w-gww"/>
+                        <constraint firstAttribute="width" constant="150" id="cve-fx-4KZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ssi-fs-TVG">
+                    <rect key="frame" x="0.0" y="23" width="247" height="44"/>
+                    <color key="backgroundColor" name="light_green"/>
+                    <color key="barTintColor" name="light_green"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="he0-eR-Jvi">
+                    <rect key="frame" x="0.0" y="66" width="247" height="2"/>
+                    <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="hMM-29-JZc"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GRz-z1-QHG">
+                    <rect key="frame" x="0.0" y="21" width="247" height="4"/>
+                    <color key="backgroundColor" name="light_green"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="4" id="Cz4-BH-sgC"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="light_green"/>
+            <constraints>
+                <constraint firstItem="Ssi-fs-TVG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1lH-GP-Acg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ssi-fs-TVG" secondAttribute="trailing" id="6zk-LI-Vxc"/>
+                <constraint firstItem="he0-eR-Jvi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="7Vt-Jq-6J6"/>
+                <constraint firstItem="GRz-z1-QHG" firstAttribute="top" secondItem="VHj-lZ-sBe" secondAttribute="bottom" constant="1" id="9Co-mk-e8h"/>
+                <constraint firstItem="GRz-z1-QHG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PE5-ki-mpy"/>
+                <constraint firstItem="Ssi-fs-TVG" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-1" id="RCW-LI-nfF"/>
+                <constraint firstItem="he0-eR-Jvi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TUz-Eo-jk6"/>
+                <constraint firstItem="VHj-lZ-sBe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="Zgp-3y-C4t"/>
+                <constraint firstAttribute="bottom" secondItem="he0-eR-Jvi" secondAttribute="bottom" id="eGA-yZ-Avf"/>
+                <constraint firstItem="VHj-lZ-sBe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="hzg-NB-75l"/>
+                <constraint firstAttribute="trailing" secondItem="GRz-z1-QHG" secondAttribute="trailing" id="sjj-CP-Wgv"/>
+                <constraint firstItem="Ssi-fs-TVG" firstAttribute="top" secondItem="VHj-lZ-sBe" secondAttribute="bottom" constant="3" id="uNJ-7n-Pkr"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="-183.19999999999999" y="-410.83743842364532"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="light_green">
+            <color red="0.3919999897480011" green="1" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
