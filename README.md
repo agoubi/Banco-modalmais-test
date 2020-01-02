@@ -18,7 +18,7 @@ Features implemented :
 - Coordinator navigation
 - layout components 
 - custom fonts/Images/colors
+- clear one filter and update the list of repositories by the new filters
 
 Features Not Working / Needs to be improved
-- clear one filter : Not implemented
 - Search Tab Bar: Implemeted but needs more time to be fixed 
