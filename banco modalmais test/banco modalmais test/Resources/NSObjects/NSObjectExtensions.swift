@@ -11,7 +11,7 @@ import Foundation
 extension NSObject {
 
     ///This function return a string containing the name o the class
-    public static var className: String {
+    static var className: String {
         return NSStringFromClass(self)
             .components(separatedBy: ".")
             .last ?? NSStringFromClass(self)

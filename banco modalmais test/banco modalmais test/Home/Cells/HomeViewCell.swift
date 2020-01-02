@@ -24,7 +24,9 @@ class HomeViewCell: UITableViewCell {
     @IBOutlet var nbrFollowersValue: UILabel!
     @IBOutlet var dateValue: UILabel!
     @IBOutlet var nbrBranches: UILabel!
+    
     //MARK: - Initializer
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

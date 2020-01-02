@@ -8,11 +8,11 @@
 
 import Foundation
 
-public struct RepositoriesModel: Codable {
+struct RepositoriesModel: Codable {
     
-    public var total_count:Int?
-    public var incomplete_results: Bool?
-    public var items: [RepositoryModel]?
+    var total_count:Int?
+    var incomplete_results: Bool?
+    var items: [RepositoryModel]?
     
     enum CodingKeys: String, CodingKey {
         case total_count = "total_count"

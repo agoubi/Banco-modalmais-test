@@ -17,7 +17,7 @@ extension UIFont {
     ///
     /// - regular: Regular weight
     /// - semibold: Semibold weight
-    public enum BancoModalWeight: CaseIterable {
+    enum BancoModalWeight: CaseIterable {
         case arial_narrow_regular
         case arial_narrow_bold
         case arial_narrow_bolditalic
@@ -54,7 +54,7 @@ extension UIFont {
     /// - fontSize: Font size
     /// - weight: Font weight
     /// - Returns: Banco modal Font with specified parameters
-    public class func bancoModalFont(ofSize fontSize: CGFloat, weight: UIFont.BancoModalWeight) -> UIFont {
+    class func bancoModalFont(ofSize fontSize: CGFloat, weight: UIFont.BancoModalWeight) -> UIFont {
         guard let bancoModalFont = UIFont(name: weight.fontName, size: fontSize) else {
             return UIFont.systemFont(ofSize: fontSize, weight: weight.asUIFontWeight)
         }

@@ -41,8 +41,11 @@ extension FilterCoordinatoor: FilterViewDelegate {
                 homeVC.orderListFilter.removeAll()
                 homeVC.filterTabBarView.filterArray.removeAll()
                 homeVC.filters = filters
+                homeVC.filterTabBarView.filterArray.append(contentsOf: filters)
                 homeVC.orderListFilter = orderListFilter
+                homeVC.filterTabBarView.filterArray.append(contentsOf: orderListFilter)
                 homeVC.heightFilterView.constant = 56
+                homeVC.filterTabBarView.filterCollectionView.reloadData()
                 homeVC.countNotification = filters.count + orderListFilter.count
                 presenter.popToRootViewController(animated:true)
             }

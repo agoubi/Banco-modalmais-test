@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 ///Every UI in this project supposed to conform to this guideline.
-public struct BMGuideline {
+struct BMGuideline {
 
     /// Typograph constraints.
-    public enum Typography {
+    enum Typography {
         case caption(weight: UIFont.BancoModalWeight)
         case little(weight: UIFont.BancoModalWeight)
         case tiny(weight: UIFont.BancoModalWeight)
 
         /// Typography fonts. Use these fonts across your project. You should never instantiate a custom font.
         /// Always use fonts from this Guideline.
-        public var font: UIFont {
+        var font: UIFont {
             switch self {
             case .caption(let weight): return .bancoModalFont(ofSize: 14, weight: weight)
             case .little(let weight): return .bancoModalFont(ofSize: 12, weight: weight)
@@ -30,7 +30,7 @@ public struct BMGuideline {
 
         /// Typography line spacing. Use these line spacing across your project. You should never create a new line spacing.
         /// Always use line spacing from this Guideline.
-        public var lineSpacing: CGFloat {
+        var lineSpacing: CGFloat {
             switch self {
             case .caption(_): return 1
             case .little(_): return 1

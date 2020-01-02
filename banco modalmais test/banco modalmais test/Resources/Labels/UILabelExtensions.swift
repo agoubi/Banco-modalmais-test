@@ -50,7 +50,7 @@ extension UILabel {
     /// - Parameters:
     ///   - typography: The Typography type.
     ///   - color: The color of the text.
-    public func apply(typography: BMGuideline.Typography, with color: UIColor) {
+    func apply(typography: BMGuideline.Typography, with color: UIColor) {
         font = typography.font
         textColor = color
         addLineSpacing(typography.lineSpacing)

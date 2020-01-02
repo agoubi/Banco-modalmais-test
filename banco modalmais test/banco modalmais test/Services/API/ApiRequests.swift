@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class ApiRequests {
+class ApiRequests {
     
     static let instance = ApiRequests()
     
-    public func getAllRepositories(page:Int,completion: @escaping CompletionHandler) {
+    func getAllRepositories(page:Int,completion: @escaping CompletionHandler) {
         if let url = URL(string: "\(BASE_URL)&page=\(page)") {
            URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {

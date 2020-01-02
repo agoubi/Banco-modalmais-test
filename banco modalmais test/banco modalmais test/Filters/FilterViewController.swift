@@ -48,7 +48,7 @@ class FilterViewController: UIViewController {
         }
     }
     
-    public lazy var listFiltersView: SearchFilterTabBar = {
+    lazy var listFiltersView: SearchFilterTabBar = {
         let listFiltersView = SearchFilterTabBar(isAddingFilters: true)
         listFiltersView.translatesAutoresizingMaskIntoConstraints = false
         listFiltersView.backgroundColor = .clear
@@ -110,7 +110,7 @@ class FilterViewController: UIViewController {
     
     @IBAction func applyFilter(_ sender: UIButton) {
         if filterListArray.count == 0 {
-            self.showAlert(alertText: "Error", alertMessage: "you have to choose an item to be sorted")
+            self.showAlert(alertText: "erro", alertMessage: "você tem que escolher um item para ser classificado")
         } else {
             
             if filterListArray.contains(where: { filtermodel -> Bool in
@@ -118,10 +118,10 @@ class FilterViewController: UIViewController {
             }) && filterListArray.contains(where: { filtermodel -> Bool in
                 filtermodel.title == "SEGUIDORE"
             }) {
-                self.showAlert(alertText: "Error", alertMessage: "this filter can't be applied on the list")
+                self.showAlert(alertText: "erro", alertMessage: "este filtro não pode ser aplicado na lista")
             } else {
                 if orderFiltersList.count == 0 {
-                    self.showAlert(alertText: "Error", alertMessage: "you have to choose the sort type")
+                    self.showAlert(alertText: "erro", alertMessage: "você tem que escolher o tipo de classificação")
                 } else {
                     delegate?.applyFilter(self, filters: filterListArray, orderListFilter: orderFiltersList)
                 }
@@ -170,10 +170,11 @@ class FilterViewController: UIViewController {
 }
 
 extension FilterViewController: SearchFilterTabBarDelegate {
+    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray: [FilterModel], deletedFilter: String, selectedIndex: Int) {
+    }
+    
     func ChosenFilters(_ searchFilterTabBar: SearchFilterTabBar, selectedFilters: [FilterModel]) {
         filterListArray.removeAll()
         filterListArray = selectedFilters
-    }
-    
-    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray: [FilterModel]) {}
+    }    
 }

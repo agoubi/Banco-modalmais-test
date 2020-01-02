@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CompletionHandler = (_ Success: Bool, _ data:Data?) -> ()
+typealias CompletionHandler = (_ Success: Bool, _ data:Data?) -> ()
 
 //Header
 let HEADER = [

@@ -68,31 +68,39 @@ class HomeViewModel {
     }
     
     //MARK: - FUnctions
-    
     func orderListRepositories(orderListFilter: [FilterModel], filters: [FilterModel]) {
         ///Order the list of repository
         if orderListFilter.count > 0 && orderListFilter[0].title == "CRESCENTE" {
-            for item in filters {
-                if item.title == "ESTRELAS" {
-                    repositories = repositories.sorted(by: { $0.stargazers_count ?? 0 > $1.stargazers_count ?? 0})
-                } else if item.title == "SEGUIDORE"  {
-                    repositories = repositories.sorted(by: { $0.watchers_count ?? 0 > $1.watchers_count ?? 0})
-                }
-                if item .title == "DATA" {
-                    repositories = repositories.sorted(by: { stringToDate(dateString: $0.created_at!) > stringToDate(dateString: $1.created_at!)})
-                }
+        
+            if filters.contains(where: { $0.title == "DATA" })
+                   && filters.contains(where: { $0.title == "ESTRELAS" }) {
+                repositories = repositories.sorted(by: { (stringToDate(dateString: $0.created_at!), $0.stargazers_count ?? 0) > (stringToDate(dateString: $1.created_at!), $1.stargazers_count ?? 0)})
+            } else if filters.contains(where: { $0.title == "DATA" })
+                   && filters.contains(where: { $0.title == "SEGUIDORE" }) {
+                repositories = repositories.sorted(by: { (stringToDate(dateString: $0.created_at!), $0.watchers_count ?? 0) > (stringToDate(dateString: $1.created_at!), $1.watchers_count ?? 0)})
+            }else if filters.contains(where: { $0.title == "ESTRELAS" }) {
+                repositories = repositories.sorted(by: { $0.stargazers_count ?? 0 > $1.stargazers_count ?? 0})
+            } else if filters.contains(where: { $0.title == "SEGUIDORE" }) {
+                repositories = repositories.sorted(by: { $0.watchers_count ?? 0 > $1.watchers_count ?? 0})
+            } else if filters.contains(where: { $0.title == "DATA" }) {
+                repositories = repositories.sorted(by: { stringToDate(dateString: $0.created_at!) > stringToDate(dateString: $1.created_at!)})
             }
+            
         } else if orderListFilter.count > 0 && orderListFilter[0].title == "DECRESCENTE" {
-           for item in filters {
-                if item.title == "ESTRELAS" {
-                    repositories = repositories.sorted(by: { $0.stargazers_count ?? 0 < $1.stargazers_count ?? 0})
-                } else if item.title == "SEGUIDORE"  {
-                    repositories = repositories.sorted(by: { $0.watchers_count ?? 0 < $1.watchers_count ?? 0})
-                }
-                if item .title == "DATA" {
-                    repositories = repositories.sorted(by: { stringToDate(dateString: $0.created_at!) < stringToDate(dateString: $1.created_at!)})
-                }
-            }
+           
+            if filters.contains(where: { $0.title == "DATA" })
+                   && filters.contains(where: { $0.title == "ESTRELAS" }) {
+                repositories = repositories.sorted(by: { (stringToDate(dateString: $0.created_at!), $0.stargazers_count ?? 0) < (stringToDate(dateString: $1.created_at!), $1.stargazers_count ?? 0)})
+            } else if filters.contains(where: { $0.title == "DATA" })
+                   && filters.contains(where: { $0.title == "SEGUIDORE" }) {
+                repositories = repositories.sorted(by: { (stringToDate(dateString: $0.created_at!), $0.watchers_count ?? 0) < (stringToDate(dateString: $1.created_at!), $1.watchers_count ?? 0)})
+            } else if filters.contains(where: { $0.title == "ESTRELAS" }) {
+               repositories = repositories.sorted(by: { $0.stargazers_count ?? 0 < $1.stargazers_count ?? 0})
+           } else if filters.contains(where: { $0.title == "SEGUIDORE" }) {
+               repositories = repositories.sorted(by: { $0.watchers_count ?? 0 < $1.watchers_count ?? 0})
+           } else if filters.contains(where: { $0.title == "DATA" }) {
+               repositories = repositories.sorted(by: { stringToDate(dateString: $0.created_at!) < stringToDate(dateString: $1.created_at!)})
+           }
         }
     }
     

@@ -9,6 +9,8 @@
 import Foundation
 
 protocol FilterViewDelegate: AnyObject {
+    ///this function is used to get the filters that needs to be applied on the list
     func closeFilter(_ filterViewController: FilterViewController)
+    ///this function is used to handle the action when the user delete one of the filters 
     func applyFilter(_ filterViewController: FilterViewController, filters: [FilterModel], orderListFilter: [FilterModel])
 }

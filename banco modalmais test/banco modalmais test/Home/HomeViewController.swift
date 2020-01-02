@@ -12,21 +12,20 @@ import RxSwift
 
 class HomeViewController: UIViewController {
 
+    //MARK: - Constants
+    struct Metrics{
+        static var heightCell: CGFloat = 171
+    }
+    
     //MARK: - Private proprties
     private var viewModel: HomeViewModel
     private let disposeBag = DisposeBag()
-    var filters = [FilterModel](){
-        didSet {
-            self.filterTabBarView.filterArray.append(contentsOf: filters)
-            self.filterTabBarView.filterCollectionView.reloadData()
-        }
-    }
-    var orderListFilter = [FilterModel]() {
-        didSet {
-            self.filterTabBarView.filterArray.append(contentsOf: orderListFilter)
-            self.filterTabBarView.filterCollectionView.reloadData()
-        }
-    }
+    
+    ///the list that contains the items use to sort the the list of repositories
+    var filters = [FilterModel]()
+    ///the list  that contains the way that the list of the repositories is going to be sorted
+    var orderListFilter = [FilterModel]()
+    ///this list contains the repositories searched on the search bar
     var searchListRepositories = [RepositoryModel]()
     ///Pull refresh control
     private let refreshControl = UIRefreshControl()
@@ -201,15 +200,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        ///check if the user is scrolling and check the business logic of the infinate pagination
         if (indexPath.row == searchListRepositories.count - 1) && (viewModel.isloading == false) && (viewModel.haveMore == true) {
             viewModel.start = viewModel.start + 1
             viewModel.isloading = true
             viewModel.viewDidLoad(start: viewModel.start)
+            if filters.count != 0 {
+                countNotification = orderListFilter.count + filters.count
+                gitRepoTableView.reloadData()
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 171
+        return Metrics.heightCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -217,24 +221,49 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController: SearchFilterTabBarDelegate{
-    func ChosenFilters(_ searchFilterTabBar: SearchFilterTabBar, selectedFilters: [FilterModel]) {
+extension HomeViewController: SearchFilterTabBarDelegate {
+
+    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray: [FilterModel], deletedFilter: String, selectedIndex: Int){
         
-    }
-    
-    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray: [FilterModel]) {
-        if filterArray.isEmpty {
+        if filterArray.isEmpty || filters.isEmpty {
             UIView.animate(withDuration: 3) {
-                self.heightFilterView.constant = 0
+                self.filters.removeAll()
+                self.orderListFilter.removeAll()
+                self.countNotification = 0
+                self.viewModel.viewDidLoad(start: 1)
+            }
+        } else {
+            
+            if filterArray[selectedIndex].title == "CRESCENTE" || filterArray[selectedIndex].title == "DECRESCENTE" {
+                self.showAlert(alertText: "erro", alertMessage: "o sinal de pedido é necessário para classificar a lista")
+            } else {
+                if filters.count == 1 {
+                    self.showAlert(alertText: "erro", alertMessage: "esse filtro pode ser aplicado para classificar a lista")
+                } else {
+                    for (index,item) in filters.enumerated() {
+                        if item.title == deletedFilter {
+                            filters.remove(at: index)
+                        }
+                    }
+                    searchFilterTabBar.deleteFilter(index: selectedIndex)
+                    searchFilterTabBar.filterCollectionView.reloadData()
+                    countNotification = filters.count+orderListFilter.count
+                    gitRepoTableView.reloadData()
+                }
             }
         }
+    }
+    
+    func ChosenFilters(_ searchFilterTabBar: SearchFilterTabBar, selectedFilters: [FilterModel]) {
+        
     }
 }
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
-            viewModel.viewDidLoad(start: 1)
+            searchListRepositories.removeAll()
+            searchListRepositories = viewModel.repositories
             return
         }
         

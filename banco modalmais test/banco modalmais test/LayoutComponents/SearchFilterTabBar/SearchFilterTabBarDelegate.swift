@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol SearchFilterTabBarDelegate: AnyObject {
+protocol SearchFilterTabBarDelegate: AnyObject {
     func ChosenFilters(_ searchFilterTabBar: SearchFilterTabBar, selectedFilters: [FilterModel])
-    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray :[FilterModel])
+    func updateWhenFilterDeleted(_ searchFilterTabBar: SearchFilterTabBar, filterArray :[FilterModel], deletedFilter: String, selectedIndex: Int)
 }

@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-@IBDesignable public class SearchFilterTabBar: UIView {
+@IBDesignable class SearchFilterTabBar: UIView {
 
     //MARK: - Private Proprties
-    public var selectedIndex = -1
-    public var filterArray = [FilterModel]()
+    var selectedIndex = -1
+    var filterArray = [FilterModel]()
     
-    public var arrayChosenFilters = [FilterModel]()
+    var arrayChosenFilters = [FilterModel]()
     
     //MARK: - Private outlets
     private lazy var filterCollectionViewLayout: UICollectionViewFlowLayout = {
@@ -25,7 +25,7 @@ import UIKit
         return flowLayout
     }()
 
-    public lazy var filterCollectionView: UICollectionView = {
+    lazy var filterCollectionView: UICollectionView = {
         let filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: filterCollectionViewLayout)
         filterCollectionView.delegate = self
         filterCollectionView.dataSource = self
@@ -42,7 +42,7 @@ import UIKit
     }()
 
     //MARK: - API
-    public weak var delegate: SearchFilterTabBarDelegate?
+    weak var delegate: SearchFilterTabBarDelegate?
 
     //MARK: - INITIALIZERS
 
@@ -52,7 +52,7 @@ import UIKit
         constraintUI()
     }
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         constraintUI()
     }
@@ -63,7 +63,7 @@ import UIKit
 
     //MARK: - Setup
 
-    public func constraintUI() {
+    func constraintUI() {
 
         addSubview(filterCollectionView)
         NSLayoutConstraint.activate([
@@ -100,22 +100,38 @@ import UIKit
     
     @objc func deleteFilter(_ sender: UIButton) {
         selectedIndex = sender.tag
+        var buttonName = ""
         if selectedIndex != -1 {
-            deleteFilter(index: selectedIndex)
-            filterCollectionView.reloadData()
+            buttonName = filterArray[selectedIndex].title
+            delegate?.updateWhenFilterDeleted(self, filterArray: filterArray, deletedFilter: buttonName, selectedIndex: selectedIndex)
         }
-        delegate?.updateWhenFilterDeleted(self, filterArray: filterArray)
+        
     }
+    
+    /*
+     selectedIndex = sender.tag
+     var buttonName = ""
+     if selectedIndex != -1 {
+         if filterArray[selectedIndex].title == "CRESCENTE" || filterArray[selectedIndex].title == "DECRESCENTE" {
+             delegate?.updateWhenFilterDeleted(self, filterArray: filterArray, deletedFilter: buttonName, selectedIndex: selectedIndex)
+         } else {
+             buttonName = filterArray[selectedIndex].title
+             deleteFilter(index: selectedIndex)
+             filterCollectionView.reloadData()
+             delegate?.updateWhenFilterDeleted(self, filterArray: filterArray, deletedFilter: buttonName, selectedIndex: selectedIndex)
+         }
+     }
+     */
 
 }
 
 extension SearchFilterTabBar: UICollectionViewDelegate, UICollectionViewDataSource {
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterArray.count
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterTabBarCell.className, for: indexPath) as? FilterTabBarCell
         else { return UICollectionViewCell() }
         cell.titleLabel.preferredMaxLayoutWidth = 500
@@ -129,7 +145,7 @@ extension SearchFilterTabBar: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
 
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if FilterTabBarCell.isAddingFilters {
             let cell = collectionView.cellForItem(at: indexPath) as? FilterTabBarCell
@@ -156,15 +172,15 @@ extension SearchFilterTabBar: UICollectionViewDelegate, UICollectionViewDataSour
 
 }
 
-public class FilterTabBarCell: UICollectionViewCell {
+class FilterTabBarCell: UICollectionViewCell {
 
     //MARK : - Private outlets
 
     var widthTabBarHeader: NSLayoutConstraint!
     var widthCheckedImage: NSLayoutConstraint!
-    public static var isAddingFilters = false
+    static var isAddingFilters = false
     
-    public lazy var globalView: UIView = {
+    lazy var globalView: UIView = {
         let globalView = UIView(frame: .zero)
         globalView.translatesAutoresizingMaskIntoConstraints = false
         globalView.layer.borderColor = UIColor.black.cgColor
@@ -173,7 +189,7 @@ public class FilterTabBarCell: UICollectionViewCell {
         return globalView
     }()
 
-    public lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let titleLabel = UILabel(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.bancoModalFont(ofSize: 12, weight: .arial_narrow_bolditalic)
@@ -184,14 +200,14 @@ public class FilterTabBarCell: UICollectionViewCell {
         return titleLabel
     }()
     
-    public lazy var exitButton: UIButton = {
+    lazy var exitButton: UIButton = {
         let exitButton = UIButton(frame: .zero)
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         exitButton.setImage(.icExitBlack, for: .normal)
         return exitButton
     }()
     
-    public lazy var checkedImage: UIImageView = {
+    lazy var checkedImage: UIImageView = {
         let checkedImage = UIImageView(frame: .zero)
         checkedImage.translatesAutoresizingMaskIntoConstraints = false
         checkedImage.contentMode = .scaleAspectFit
@@ -199,14 +215,14 @@ public class FilterTabBarCell: UICollectionViewCell {
         return checkedImage
     }()
 
-    public lazy var leftViewBorder: UIView = {
+    lazy var leftViewBorder: UIView = {
         let leftViewBorder = UIView(frame: .zero)
         leftViewBorder.translatesAutoresizingMaskIntoConstraints = false
         leftViewBorder.backgroundColor = .clear
         return leftViewBorder
     }()
 
-    public lazy var rightViewBorder: UIView = {
+    lazy var rightViewBorder: UIView = {
         let rightViewBorder = UIView(frame: .zero)
         rightViewBorder.translatesAutoresizingMaskIntoConstraints = false
         rightViewBorder.backgroundColor = .clear
@@ -220,7 +236,7 @@ public class FilterTabBarCell: UICollectionViewCell {
         constraintUI()
     }
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         constraintUI()
     }
@@ -293,11 +309,11 @@ public class FilterTabBarCell: UICollectionViewCell {
         
     }
 
-    public func configure(title: String) {
+    func configure(title: String) {
         titleLabel.text = title
     }
     
-    public func setBackgroundColorCellElements(isSelected: Bool) {
+    func setBackgroundColorCellElements(isSelected: Bool) {
         if FilterTabBarCell.isAddingFilters {
             if isSelected {
                 globalView.backgroundColor = .darkGray
@@ -314,10 +330,10 @@ public class FilterTabBarCell: UICollectionViewCell {
 
 }
 
-public struct FilterModel {
+struct FilterModel {
 
-    public var title: String
-    public var isSelected: Bool
+    var title: String
+    var isSelected: Bool
 
     init(title: String, isSelected: Bool) {
         self.title = title
