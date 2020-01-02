@@ -263,14 +263,20 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
             searchListRepositories.removeAll()
-            searchListRepositories = viewModel.repositories
+            viewModel.start = 1
+            viewModel.isloading = false
+            viewModel.haveMore = true
+            viewModel.viewDidLoad(start: viewModel.start)
             return
         }
-        
+
+        viewModel.isloading = true
+        viewModel.haveMore = false
         searchListRepositories = viewModel.repositories.filter({ (repo) -> Bool in
             let name = repo.name ?? ""
             return name.lowercased().hasPrefix(searchText.lowercased())
         })
         gitRepoTableView.reloadData()
+        
     }
 }
